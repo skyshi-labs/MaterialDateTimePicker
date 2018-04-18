@@ -104,6 +104,7 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
                     );
                 }
                 dpd.setThemeDark(modeDarkDate.isChecked());
+                dpd.autoDismiss(true);
                 dpd.vibrate(vibrateDate.isChecked());
                 dpd.dismissOnPause(dismissDate.isChecked());
                 dpd.showYearPickerFirst(showYearFirst.isChecked());

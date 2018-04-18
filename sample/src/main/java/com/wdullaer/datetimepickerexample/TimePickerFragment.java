@@ -137,6 +137,8 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
                         Log.d("TimePicker", "Dialog was cancelled");
                     }
                 });
+                tpd.autoDismiss(true);
+                tpd.enableMinutes(false);
                 tpd.show(getFragmentManager(), "Timepickerdialog");
             }
         });

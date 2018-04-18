@@ -135,6 +135,7 @@ public class TimePickerDialog extends DialogFragment implements
     private boolean mVibrate;
     private int mAccentColor = -1;
     private boolean mDismissOnPause;
+    private boolean mAutoDismiss = false;
     private boolean mEnableSeconds;
     private boolean mEnableMinutes;
     private int mOkResid;
@@ -1000,6 +1001,7 @@ public class TimePickerDialog extends DialogFragment implements
 
         mTimePicker.setBackgroundColor(mThemeDark? lightGray : circleBackground);
         view.findViewById(R.id.mdtp_time_picker_dialog).setBackgroundColor(mThemeDark ? darkBackgroundColor : backgroundColor);
+        view.findViewById(R.id.mdtp_done_background).setVisibility(mAutoDismiss ? View.GONE : View.VISIBLE);
         return view;
     }
 
@@ -1119,6 +1121,11 @@ public class TimePickerDialog extends DialogFragment implements
         setSecond(newValue.getSecond());
         mTimePicker.setContentDescription(mSecondPickerDescription + ": " + newValue.getSecond());
         if(!mIs24HourMode) updateAmPmDisplay(newValue.isAM() ? AM : PM);
+
+        if (mAutoDismiss) {
+            notifyOnDateListener();
+            dismiss();
+        }
     }
 
     @Override
@@ -1908,5 +1915,15 @@ public class TimePickerDialog extends DialogFragment implements
 
     public Timepoint getSelectedTime() {
         return mTimePicker.getTime();
+    }
+
+    /**
+     * Set whether the picker should dismiss itself when a day is selected
+     *
+     * @param autoDismiss true if the dialog should dismiss itself when a day is selected
+     */
+    @SuppressWarnings("unused")
+    public void autoDismiss(boolean autoDismiss) {
+        mAutoDismiss = autoDismiss;
     }
 }
