@@ -26,6 +26,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -1071,8 +1073,13 @@ public class DatePickerDialog extends DialogFragment implements
         updatePickers();
         updateDisplay(true);
         if (mAutoDismiss) {
-            notifyOnDateListener();
-            dismiss();
+            (new Handler(Looper.getMainLooper())).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    notifyOnDateListener();
+                    dismiss();
+                }
+            }, 200);
         }
     }
 

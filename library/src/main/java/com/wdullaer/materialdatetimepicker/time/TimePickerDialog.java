@@ -27,6 +27,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -1123,8 +1125,13 @@ public class TimePickerDialog extends DialogFragment implements
         if(!mIs24HourMode) updateAmPmDisplay(newValue.isAM() ? AM : PM);
 
         if (mAutoDismiss) {
-            notifyOnDateListener();
-            dismiss();
+            (new Handler(Looper.getMainLooper())).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    notifyOnDateListener();
+                    dismiss();
+                }
+            }, 200);
         }
     }
 
