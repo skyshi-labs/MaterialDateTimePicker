@@ -456,6 +456,7 @@ public class DatePickerDialog extends DialogFragment implements
         }
 
         mHapticFeedbackController = new HapticFeedbackController(activity);
+        view.findViewById(R.id.mdtp_done_background).setVisibility(mAutoDismiss ? View.GONE : View.VISIBLE);
         return view;
     }
 
